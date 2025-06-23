@@ -45,7 +45,7 @@
       position: absolute;
       top: 12px;
       right: 16px;
-      font-size: 28px;
+      font-size: 40px;
       font-weight: bold;
       cursor: pointer;
     }
@@ -69,21 +69,23 @@
   `;
   document.head.appendChild(style);
 
-  // Session-based show logic
-  if (!sessionStorage.getItem('tobyModalShown')) {
+   var modalCheck = setInterval(function() {
     var modal = document.getElementById("myModal");
-    modal.style.display = "flex";
-    sessionStorage.setItem("tobyModalShown", "true");
+    if (modal) {
+      modal.style.display = "flex";
 
-    var span = modal.querySelector(".close");
-    span.onclick = function () {
-      modal.style.display = "none";
-    };
-
-    window.onclick = function (event) {
-      if (event.target === modal) {
+      var span = modal.querySelector(".close");
+      span.onclick = function () {
         modal.style.display = "none";
-      }
-    };
-  }
+      };
+
+      window.onclick = function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      clearInterval(modalCheck);
+    }
+  }, 50);
 })();
